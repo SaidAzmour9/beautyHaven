@@ -17,7 +17,7 @@
           {% from "_formhelpers.html" import render_field %}
           <form method="post" enctype="multipart/form-data">
             <div>
-              {{ render_field(form.username, class='form-control form-control-md') }}
+              {{ render_field(form.name, class='form-control form-control-md') }}
               {{ render_field(form.email, class='form-control form-control-md') }}
               {{ render_field(form.password, class='form-control form-control-md') }}
               {{ render_field(form.confirm, class='form-control form-control-md') }}

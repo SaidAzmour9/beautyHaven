@@ -1,13 +1,18 @@
 from flask import render_template,redirect,request,session, url_for, flash
 
 from beautyHaven import app, db, bcrypt
+from beautyHaven.products.models import Product
 from .forms import RegistrationForm,LoginForm
 from .models import User
 
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    products = Product.query.all()
+    return render_template('/admin/index.html',products=products)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -28,7 +33,7 @@ def register():
     form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         pw_hash = bcrypt.generate_password_hash(form.password.data)
-        user = User(username=form.username.data,email=form.email.data,password=pw_hash)
+        user = User(name=form.name.data,email=form.email.data,password=pw_hash)
         db.session.add(user)
         db.session.commit()
         flash('Thanks for registering')

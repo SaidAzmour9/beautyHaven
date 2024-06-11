@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<section class="bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+  <div class=" d-flex align-items-center ">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <h1>Add Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.name.label }}<br>
+            {{ form.name(size=20) }}<br>
+            {% for error in form.name.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.price.label }}<br>
+            {{ form.price(size=20) }}<br>
+            {% for error in form.price.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.discount.label }}<br>
+            {{ form.discount(size=20) }}<br>
+        </div>
+        <div>
+            {{ form.quantity.label }}<br>
+            {{ form.quantity(size=20) }}<br>
+            {% for error in form.quantity.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.description.label }}<br>
+            {{ form.description(rows=5, cols=40) }}<br>
+            {% for error in form.description.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+        <div class="d-flex">
+          <div class="d-flex">
+            {{ form.img1.label }}<br>
+            {{ form.img1() }}<br>
+            {% for error in form.img1.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+          </div>
+          <div class="d-flex">
+              {{ form.img2.label }}<br>
+              {{ form.img2() }}<br>
+              {% for error in form.img2.errors %}
+                  <span style="color: red;">[{{ error }}]</span><br>
+              {% endfor %}
+          </div>
+          <div class="d-flex">
+                {{ form.img3.label }}<br>
+                {{ form.img3() }}<br>
+                {% for error in form.img3.errors %}
+                    <span style="color: red;">[{{ error }}]</span><br>
+                {% endfor %}
+          </div>
+        </div>
+          <div>
+              <label for="brand">Brand</label><br>
+              <select name="brand" id="brand">
+                  {% for brand in brands %}
+                      <option value="{{ brand.id }}">{{ brand.name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div>
+              <label for="category">Category</label><br>
+              <select name="category" id="category">
+                  {% for category in categories %}
+                      <option value="{{ category.id }}">{{ category.name }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+        <button type="submit">Add Product</button>
+    </form>
+      </div>
+    </div>
+  </div>
+  </section>
+
+
+<!--<section class="vh-90" style="background-color: #9A616D;">
+    <div class="container py-2">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col col-xl-10">
+          <div class="" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-2 p-lg-2 text-black">
+                  {% include '_.messages.html' %}
+                    <form  method="post" enctype="multipart/form-data">
+                      <h2 class="fw-normal mb-3 pb-1" style="letter-spacing: 1px;text-align: center;">Add product:</h2>
+                      <div class="form-outline mb-4 d-flex">
+                        <h3>Name: </h3>
+                        <input type="text" name="Name" class='form-control form-control-md'>    
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        <h3>Price: </h3>
+                        <input type="number" name="Price" class='form-control form-control-md'>    
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        <h3>description: </h3>
+                        <input type="text" name="Description" class='form-control form-control-md'>    
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        <h3>discount: </h3>
+                        <input type="number" name="Discount" class='form-control form-control-md'>    
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        <h3>stock: </h3>
+                        <input type="number" name="Quantity" class='form-control form-control-md'>    
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        <select name="category" class="me-4 p-2 form-outline">
+                            <option value="1">Add brand</option>
+                            <option value="1">gdgd</option>
+                        </select>
+                        <select name="brand" class="">
+                            <option value="1">add category</option>
+                            <option value="1">gdgd</option>
+                        </select>
+                      </div>
+                      <div class="form-outline mb-4 d-flex">
+                        
+                      </div>
+                      <div class="form-outline mb-2 d-flex">
+                            <input type="file" name="img1" id="">
+                            <input type="file" name="img2" id="">
+                            <input type="file" name="img3" id="">   
+                      </div>
+  
+                      <div class="pt-1 mt-5 text-center">
+                        <input type=submit value="Add Product" class="btn btn-dark btn-lg btn-block">
+                      </div>
+                    </form>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>-->
+{% endblock %}
