@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3 class="me-2">This is all categorys:  </h3>
+<table class="table table-dark table-hover  table-bordered  ">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    
+  </thead>
+  <tbody>
+    {% for category in categorys %}
+
+        <tr>
+            <th scope="row">{{category.id}}</th>
+            <td>{{category.name}}</td>
+            <td><a href="{{url_for('updatecat',id=category.id)}}">edit</a></td>
+            <td><a href="">Delete</a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+
+
+</table>
+
+{% endblock content %}

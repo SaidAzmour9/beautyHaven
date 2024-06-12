@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<form  method="post">
+  <h2 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Update Brand:</h2>
+  <div data-mdb-input-init class="form-outline mb-2">
+    <input type="text" name="brand" class='form-control form-control-md' value="{{updatebrand.name}}">
+  </div>
+  <div class="pt-1 mb-2">
+    <input type=submit value="Update Brand" class="btn btn-dark btn-lg btn-block">
+  </div>
+</form>
+
+{% endblock content %}

@@ -2,7 +2,6 @@
 
 {% block content %}
     <form method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
         <div>
             {{ form.name.label }}<br>
             {{ form.name(size=20) }}<br>
@@ -35,32 +34,17 @@
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
         </div>
-        <div class="">
-          <div class="d-flex">
-            {{ form.img1.label }}<br>
-            {{ form.img1(required=True) }}<br>
-            {% for error in form.img1.errors %}
-                <span style="color: red;">[{{ error }}]</span><br>
-            {% endfor %}
-          </div>
-          <div class="d-flex">
-              {{ form.img2.label }}<br>
-              {{ form.img2(required=True) }}<br>
-              {% for error in form.img2.errors %}
-                  <span style="color: red;">[{{ error }}]</span><br>
-              {% endfor %}
-          </div>
-          <div class="d-flex">
-                {{ form.img3.label }}<br>
-                {{ form.img3(required=True) }}<br>
-                {% for error in form.img3.errors %}
-                    <span style="color: red;">[{{ error }}]</span><br>
-                {% endfor %}
-          </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"><input type="file" name="img1"></div>
+                <div class="col-md-4"><input type="file" name="img2"></div>
+                <div class="col-md-4"><input type="file" name="img3"></div>
+            </div>
         </div>
           <div>
               <label for="brand">Brand</label><br>
               <select name="brand" id="brand">
+                <option value="{{ product.brand_id }}">{{ product.brand.name }}</option>
                   {% for brand in brands %}
                       <option value="{{ brand.id }}">{{ brand.name }}</option>
                   {% endfor %}
@@ -69,11 +53,12 @@
           <div>
               <label for="category">Category</label><br>
               <select name="category" id="category">
+                <option value="{{ product.category_id }}">{{ product.category.name }}</option>
                   {% for category in categories %}
                       <option value="{{ category.id }}">{{ category.name }}</option>
                   {% endfor %}
               </select>
           </div>
-        <button type="submit">Add Product</button>
+        <button type="submit" class="btn btn-success mt-lg-4">Add Product</button>
     </form>
 {% endblock content %}

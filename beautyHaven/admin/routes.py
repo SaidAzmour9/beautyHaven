@@ -1,7 +1,7 @@
 from flask import render_template,redirect,request,session, url_for, flash
 
 from beautyHaven import app, db, bcrypt
-from beautyHaven.products.models import Product
+from beautyHaven.products.models import Product, Category, Brand
 from .forms import RegistrationForm,LoginForm
 from .models import User
 
@@ -14,6 +14,30 @@ def index():
     products = Product.query.all()
     return render_template('/admin/index.html',products=products)
 
+
+@app.route('/products')
+def products():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    products = Product.query.all()
+    return render_template('/admin/products.html',products=products)
+
+@app.route('/categorys')
+def categorys():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    categorys = Category.query.all()
+    return render_template('/admin/categorys.html',categorys=categorys)
+
+@app.route('/brands')
+def brands():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    brands = Brand.query.all()
+    return render_template('/admin/brands.html',brands=brands)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

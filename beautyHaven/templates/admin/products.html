@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3 class="me-2">This is all products:  </h3>
+<table class="table table-hover  table-bordered  ">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Discount</th>
+      <th scope="col">Image</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    
+  </thead>
+  <tbody>
+    {% for product in products %}
+
+        <tr>
+          <th scope="row">{{product.id}}</th>
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.stock}}</td>
+          <td>{{product.discount}}</td>
+          <td><img src="{{ url_for('uploaded_image', filename=product.image_1) }}" alt="Product Image 1" style="width: 30px;height: 40px;"></td>
+          <td><a href="{{ url_for('updatepro', id=product.id)}}" class="btn btn-success">edit</a></td>
+          <td><a href="" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+
+
+</table>
+
+{% endblock content %}
