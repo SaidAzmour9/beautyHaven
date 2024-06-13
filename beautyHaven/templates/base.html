@@ -1,67 +1,56 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} eWA beauty</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/anime.css') }}"/>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block login_css %}
+{% endblock %}
+<header>
+  <nav class="container navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+      <img class="d-block m-lg-auto" src="{{ url_for('static', filename='images/ewa_beauty_logo2.png') }}" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link mx-3" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-3" href="#">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-3" href="/categorys">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-3" href="/brands">Brands</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-3" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-3" href="/contact">Contact</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item mx-3">
+          <a class="nav-link text-black" href="/login" >
+            <i class="fas fa-user fa-xl"></i>
+          </a>
+        </li>
+        <li class="nav-item mx-3">
+          <a class="nav-link text-black" href="/cart">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 
-<section class="content">
-  <header>
-    <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>GEAR SHOP</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-          <div class="input-group">
-            <span class="border-warning input-group-text bg-warning text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input type="text" class="form-control border-warning" style="color:#7a7a7a">
-            <button class="btn btn-warning text-white">Search</button>
-          </div>
-        </div>
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-          <div class="ms-auto d-none d-lg-block">
-            <div class="input-group">
-              <span class="border-warning input-group-text bg-warning text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-              <input type="text" class="form-control border-warning" style="color:#7a7a7a">
-              <button class="btn btn-warning text-white">Search</button>
-            </div>
-          </div>
-          <ul class="navbar-nav ms-auto ">
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="#">Offers</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">Catalog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#">About</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto ">
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-cart-shopping me-1"></i> Cart</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i> Account</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
-</section>
-
+{% block content %}{% endblock %}
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
 <script src="https://kit.fontawesome.com/dbac9ef2c3.js" crossorigin="anonymous"></script>

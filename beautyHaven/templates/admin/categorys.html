@@ -19,12 +19,36 @@
             <th scope="row">{{category.id}}</th>
             <td>{{category.name}}</td>
             <td><a href="{{url_for('updatecat',id=category.id)}}">edit</a></td>
-            <td><a href="">Delete</a></td>
+            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{category.id}}">
+              delete
+            </button></td>
         </tr>
+        <div class="modal fade" id="exampleModal-{{category.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">delete {{ category.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-danger">
+                are you sure you want to delete {{ category.name}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{url_for('deletecategory', id=category.id)}}" method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
     {% endfor %}
   </tbody>
 
 
 </table>
+
+<button type="button" class="btn btn-dark mt-5"><a href="{{ url_for('addcategory')}}" class="text-white text-decoration-none">Add New Category</a></button>
 
 {% endblock content %}

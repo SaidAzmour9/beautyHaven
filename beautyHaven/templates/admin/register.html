@@ -3,33 +3,37 @@
 {% block header %}
   <h1>{% block title %}Register{% endblock %}</h1>
 {% endblock %}
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
 
 {% block content %}
-<section class="bg-image" style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
-<div class=" d-flex align-items-center ">
-  <div class="container">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-10 col-md-9 col-lg-7 col-xl-6">
-        <div class="p-5" style="border-radius: 15px;">
-          <div class="card-body p-1">
-            <h2 class="text-uppercase text-center mb-3">Create an account</h2>
-          </div>
-          {% from "_formhelpers.html" import render_field %}
-          <form method="post" enctype="multipart/form-data">
-            <div>
-              {{ render_field(form.name, class='form-control form-control-md') }}
-              {{ render_field(form.email, class='form-control form-control-md') }}
-              {{ render_field(form.password, class='form-control form-control-md') }}
-              {{ render_field(form.confirm, class='form-control form-control-md') }}
-            </div>
-            <input type=submit value=Register class="btn btn-dark btn-lg btn-block">
-          </form>
-
-          <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="#!" class="fw-bold text-body"><u>Login here</u></a></p>
-        </div>
+{% from "_formhelpers.html" import render_field %}
+<section class="body">
+  <main class="form-signin">
+    <form method="post" enctype="multipart/form-data">
+      <img class="d-block m-lg-auto" src="{{ url_for('static', filename='images/ewa_beauty_logo2.png' )}}" alt="" width="72" height="57">
+      <h1 class="">REGISTER</h1>
+      <div class="form-floating">
+           {{ render_field(form.name, class='form-control',placeholder='Your Name' ) }}
+        
       </div>
+      <div class="form-floating">
+        {{ render_field(form.email, class='form-control', id='floatingInput',placeholder='name@example.com' ) }}
+        
+      </div>
+      <div class="form-floating">
+          {{ render_field(form.password, class='form-control', id='floatingPassword', placeholder='Password') }}
+        
+      </div>
+      <div class="form-floating">
+        {{ render_field(form.confirm, class='form-control', id='floatingPassword', placeholder='Password') }}
+      
     </div>
-  </div>
-</div>
+  
+      <input class="w-100 btn btn-lg sub" type="submit" value="Sign Up">
+      <p class="mt-5 mb-3 text-muted cpoy">&copy; 2023-2024</p>
+    </form>
+  </main>
 </section>
 {% endblock %}

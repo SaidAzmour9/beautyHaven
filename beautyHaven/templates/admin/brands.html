@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3 class="me-2">This is all brands:  </h3>
-<table class="table table-dark table-hover  table-bordered  ">
+<table class="table table-hover  table-bordered  ">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -18,13 +18,37 @@
         <tr>
             <th scope="row">{{brand.id}}</th>
             <td>{{brand.name}}</td>
-            <td><a href="{{url_for('updatebrand',id=brand.id)}}">edit</a></td>
-            <td><a href="">Delete</a></td>
+            <td><a href="{{url_for('updatebrand',id=brand.id)}}" class="btn btn-primary">edit</a></td>
+            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{brand.id}}">
+              delete
+            </button></td>
         </tr>
+
+<!-- Modal -->
+        <div class="modal fade" id="exampleModal-{{brand.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">delete {{ brand.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-danger">
+                are you sure you want to delete {{ brand.name}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{url_for('deletebrand', id=brand.id)}}" method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
     {% endfor %}
   </tbody>
 
 
 </table>
-
+<button type="button" class="btn btn-dark mt-5"><a href="{{ url_for('addbrand')}}" class="text-white text-decoration-none">Add New Brand</a></button>
 {% endblock content %}

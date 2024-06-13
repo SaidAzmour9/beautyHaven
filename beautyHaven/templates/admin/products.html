@@ -27,12 +27,38 @@
           <td>{{product.discount}}</td>
           <td><img src="{{ url_for('uploaded_image', filename=product.image_1) }}" alt="Product Image 1" style="width: 30px;height: 40px;"></td>
           <td><a href="{{ url_for('updatepro', id=product.id)}}" class="btn btn-success">edit</a></td>
-          <td><a href="" class="btn btn-danger">Delete</a></td>
+          <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{product.id}}">
+            delete
+          </button></td>
         </tr>
+        <div class="modal fade" id="exampleModal-{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">delete {{ product.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-danger">
+                are you sure you want to delete {{ product.name}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="{{url_for('deleteproduct', id=product.id)}}" method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
     {% endfor %}
+
+    
   </tbody>
 
-
+  
 </table>
+
+<button type="button" class="btn btn-dark mt-5"><a href="{{ url_for('addproduct')}}" class="text-white text-decoration-none">Add New Product</a></button>
 
 {% endblock content %}

@@ -1,86 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+
     scroll-behavior: smooth;
+    background-color: #f3f3f3;
+    overflow-x: hidden; /* Ensures no horizontal scroll */
 }
-.header {
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    position: fixed;
+
+header {
+    background-color: transparent;
     width: 100%;
-    top: 0;
-    left: 0;
-    transition: background 0.3s, padding 0.3s;
+    position: fixed;
+    z-index: 1;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
-.header.scrolled {
-    background: #fff;
+
+header.scrolled {
+    background-color: rgba(255, 255, 255, 0.8); /* Change to desired background color */
 }
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.navbar {
+    padding: 0.5rem 1rem;
 }
-.logo {
-    font-size: 24px;
+
+.navbar-brand img {
+    width: 50px;
+    height: 50px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+
+
+
+
+.navbar-nav .nav-item .nav-link .s{
+    color: #000;
+}
+
+.navbar-nav .nav-item .nav-link.active {
     font-weight: bold;
 }
-.nav {
-    list-style: none;
-    display: flex;
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #000;
+}
+
+.navbar-nav.ml-auto .nav-item .nav-link {
+    padding: 0.5rem;
+}
+
+.carousel-inner {
+    position: relative;
+    z-index: 0;
+}
+
+.carousel-inner .hero-content {
+    width: 50%;
+    position: absolute;
+    z-index: 99;
+    color: #fff;
+    top: 20%;
+    left: 15%;
+}
+
+.carousel-inner .hero-content h2 {
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    font-size: 80px;
+    font-weight: 300;
+}
+
+.carousel-inner .hero-content p {
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.carousel-inner .hero-content button {
+    color: #d8cece;
+    border-radius: 0;
+    width: 150px;
+    height: 50px;
+    text-transform: uppercase;
+}
+
+.card{
+    position: relative;
+    height: 400px;
+    margin: 10px 0;
+    border-radius: 0;
+    border-color: #000;
+    background-color: #fff;
     
 }
-.nav li {
-    display: inline;
+
+.card img{
+    width: 100%;
+    height: 200px;
+    
 }
-.nav a {
+
+.card h3{
+    margin-bottom: 10px;
+    font-family: "Marcellus", serif;
+    font-weight: 600;
+    font-size: 30px;
+    font-style: normal;   
+    justify-self: center;
+}
+.card p{
+    font-weight: 200;
+    font-size: 14px;
+    font-family: "Inter", serif;
+}
+.card .disc{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    font-family: "Marcellus", serif;
+    letter-spacing: 5px;
+    background-color: #000;
+    color: #fff;
+    padding: 3px 13px;
+    font-weight: 600;
+}
+
+.card .prices{
+    text-align: center;
+    padding: 10px 0;
+}
+.card .prices .last{
+    color: #262525;
+    font-family: "Marcellus", serif;
+    font-size: 14px;
+    font-weight: 300;
+
+}
+
+.card .prices .new{
+    font-family: "Marcellus", serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 5px;
+
+}
+
+.tocard {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    width: 100%;
+}
+.tocard button{
+    display: inline-block;
+    background: transparent;
+    border: #000 1px solid;
+    width: 90%;
+    margin-top: 10px;
+    padding: 8px 0;
+}
+
+.tocard button a{
+    color: #000;
     text-decoration: none;
-    color: #333;
-}
-.carousel {
-    display: flex;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 90vh;
-}
-.carousel img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.carousel img.active {
-    opacity: 1;
-    transform: scale(1.05);
-}
-.button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-}
-.button.left {
-    left: 10px;
-}
-.button.right {
-    right: 10px;
-}
-.svg-container {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-section {
-    height: 100vh;
-   
+    font-family: "Marcellus", serif;
+    font-size: 20px;
+    font-weight: 400;
 }

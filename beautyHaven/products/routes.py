@@ -5,6 +5,10 @@ from beautyHaven.admin.routes import products
 from .forms import AddProducts
 import secrets, os
 
+@app.route('/home')
+def home():
+
+    return render_template('admin/index.html')
 
 @app.route('/addbrand', methods=['GET','POST'])
 def addbrand():
@@ -90,6 +94,22 @@ def updatebrand(id):
         return redirect(url_for('brands'))
     return render_template('products/updatebrand.html',updatebrand=updatebrand)
 
+@app.route('/deletebrand/<int:id>', methods=['POST'])
+def deletebrand(id):
+    brand = Brand.query.get_or_404(id)
+    if request.method == 'POST':
+        db.session.delete(brand)
+        db.session.commit()
+        return redirect(url_for('brands'))
+
+@app.route('/deletecategory/<int:id>', methods=['POST'])
+def deletecategory(id):
+    category = Category.query.get_or_404(id)
+    if request.method == 'POST':
+        db.session.delete(category)
+        db.session.commit()
+        return redirect(url_for('categorys'))
+
 @app.route('/updatecat/<int:id>',methods=['GET','POST'])
 def updatecat(id):
     if 'email' not in session:
@@ -171,3 +191,31 @@ def updatepro(id):
     form.quantity.data = product.stock
     form.discount.data = product.discount
     return render_template('products/updateproduct.html', form=form, product=product, categories=categories, brands=brands)
+
+
+@app.route('/deleteproduct/<int:id>',methods=['GET','POST'])
+def deleteproduct(id):
+    product = Product.query.get_or_404(id)
+    if request.method == 'POST':
+        if product.image_1 and product.image_1 != 'default_product.jpg':
+            try:
+                os.unlink(os.path.join(current_app.root_path, 'uploads/images/' + product.image_1))
+            except FileNotFoundError:
+                pass
+        
+        if product.image_2 and product.image_2 != 'default_product.jpg':
+            try:
+                os.unlink(os.path.join(current_app.root_path, 'uploads/images/' + product.image_2))
+            except FileNotFoundError:
+                pass
+        
+        if product.image_3 and product.image_3 != 'default_product.jpg':
+            try:
+                os.unlink(os.path.join(current_app.root_path, 'uploads/images/' + product.image_3))
+            except FileNotFoundError:
+                pass
+
+
+        db.session.delete(product)
+        db.session.commit()
+    return redirect(url_for('products'))

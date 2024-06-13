@@ -23,11 +23,23 @@ function previousSlide() {
     slides[currentIndex].classList.add('active');
 }
 
+
 window.addEventListener('scroll', function() {
-    var header = document.getElementById('header');
+    var header = document.querySelector('header');
+    var navLinks = document.getElementsByClassName('nav-link');
+    var s = document.getElementsByClassName('s');
+
     if (window.scrollY > 50) {
-        header.classList.add('scrolled');
+      header.classList.add('scrolled');
+      for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].style.color = '#000';
+        
+      }
     } else {
-        header.classList.remove('scrolled');
+      header.classList.remove('scrolled');
+      for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].style.color = '#fff';
+      }
     }
-});
+  });
+
