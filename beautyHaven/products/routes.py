@@ -5,10 +5,30 @@ from beautyHaven.admin.routes import products
 from .forms import AddProducts
 import secrets, os
 
-@app.route('/home')
-def home():
 
-    return render_template('admin/index.html')
+def firstfour(name, word_limit=5):
+    words = name.split()
+    if len(words) > word_limit:
+        return ' '.join(words[:word_limit]) + '...'
+    return name
+
+def firstten(description, word_limit=8):
+    words = description.split()
+    if len(words) > word_limit:
+        return ' '.join(words[:word_limit]) + '...'
+    return description
+def firstaa(description, word_limit=50):
+    words = description.split()
+    if len(words) > word_limit:
+        return ' '.join(words[:word_limit]) + '...'
+    return description
+
+@app.route('/')
+def home():
+    categorys = Category.query.join(Product,(Category.id == Product.category_id)).all()
+    brands = Brand.query.join(Product,(Brand.id == Product.brand_id)).all()
+    products = Product.query.filter(Product.stock > 0).order_by(Product.id.desc()).limit(6).all()
+    return render_template('products/index.html', products=products, firstten=firstten, firstfour=firstfour,categorys=categorys,brands=brands)
 
 @app.route('/addbrand', methods=['GET','POST'])
 def addbrand():
@@ -219,3 +239,23 @@ def deleteproduct(id):
         db.session.delete(product)
         db.session.commit()
     return redirect(url_for('products'))
+
+
+@app.route('/brand/<int:id>', methods=['GET','POST'])
+def get_brand(id):
+    categorys = Category.query.join(Product,(Category.id == Product.category_id)).all()
+    brand = Product.query.filter_by(brand_id = id)
+    brands = Brand.query.join(Product,(Brand.id == Product.brand_id)).all()
+    return render_template('products/index.html', brand = brand,brands = brands,categorys = categorys, firstten=firstten, firstfour=firstfour)
+
+@app.route('/category/<int:id>', methods=['GET','POST'])
+def get_category(id):
+    category = Product.query.filter_by(category_id = id)
+    brands = Brand.query.join(Product,(Brand.id == Product.brand_id)).all()
+    categorys = Category.query.join(Product,(Category.id == Product.category_id)).all()
+    return render_template('products/index.html', category = category,categorys = categorys,brands=brands, firstten=firstten, firstfour=firstfour)
+
+@app.route('/product/<int:id>', methods=['GET','POST'])
+def single_pro(id):
+    product= Product.query.get_or_404(id)
+    return render_template('products/single_pro.html', product=product,firstaa=firstaa)

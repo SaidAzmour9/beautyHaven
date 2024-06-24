@@ -1,0 +1,34 @@
+body{
+    background-color: #fff;
+}
+.brand{
+    font-size: 13px
+}
+.act-price{
+    color:red;font-weight: 700
+}
+.dis-price{
+    text-decoration: line-through
+}
+.about{
+    font-size: 14px
+}
+.color{
+    margin-bottom:10px
+}
+label.radio{
+    cursor: pointer
+}
+label.radio input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+.cart i{margin-right: 10px}
+
+
+.proi{
+    border: 1px solid gray;
+}

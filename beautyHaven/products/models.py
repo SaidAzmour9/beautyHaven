@@ -22,6 +22,7 @@ class Product(db.Model):
     image_1 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
     image_2 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
     image_3 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
+    
 
     def __repr__(self):
         return f"Product('{self.name}', '{self.price}', '{self.stock}')"

@@ -6,7 +6,7 @@ from .forms import RegistrationForm,LoginForm
 from .models import User
 
 
-@app.route('/')
+@app.route('/admin')
 def index():
     if 'email' not in session:
         flash('Please login first')

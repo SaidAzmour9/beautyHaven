@@ -146,3 +146,9 @@ nav{
     margin: auto;
   }
 }
+
+.navbar-nav .nav-item .nav-link {
+  color: #000;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
