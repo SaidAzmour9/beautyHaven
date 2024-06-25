@@ -35,3 +35,4 @@ create_app()
     
 from beautyHaven.admin import routes
 from beautyHaven.products import routes
+from beautyHaven.carts import carts

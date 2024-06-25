@@ -32,3 +32,32 @@ label.radio input{
 .proi{
     border: 1px solid gray;
 }
+
+.thumbnail{
+    width: 50%;
+    height: 120px;
+    display: flex;
+    justify-content: space-around;
+}
+.thumbnail img{
+    width: 100%;
+    height: 120px;
+}
+
+.qua {
+    height: 40px;
+    width: 100px;
+    outline: none;
+    margin-right: 10px;
+}
+
+.addes{
+    border-radius: 0;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.addes:hover{
+    border: 1px solid black;
+    opacity: 0.8;
+}

@@ -17,6 +17,7 @@ def firstten(description, word_limit=8):
     if len(words) > word_limit:
         return ' '.join(words[:word_limit]) + '...'
     return description
+
 def firstaa(description, word_limit=50):
     words = description.split()
     if len(words) > word_limit:

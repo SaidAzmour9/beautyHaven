@@ -12,7 +12,7 @@ class Product(db.Model):
     price: Mapped[float] = mapped_column(Float, nullable=False)
     discount: Mapped[Float] = mapped_column(Float, default=0)   
     stock: Mapped[int] = mapped_column(Integer, nullable=False)
-
+    
     brand_id: Mapped[int] = mapped_column(Integer, ForeignKey('brand.id'), nullable=False)
     brand = relationship('Brand', backref=backref('brands', lazy=True))
     

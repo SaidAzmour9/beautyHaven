@@ -3,9 +3,9 @@
 {% block content %}
 
   {% if brand %}
-  <section class="hero">
+  <section class="heroZ">
     <div class="carousel-inner">
-        <img src="{{ url_for('static', filename='images/luchiana-0319135268.webp') }}" class="d-block w-100" alt="...">
+        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
     </div>
   </section>
   <section class="container p-5 d-flex justify-content-around flex-wrap justify-content-center">
@@ -26,22 +26,27 @@
       {% endif %}
       <span class="new">{{ b.price }} $</span>
     </div>
-    <div class="d-flex justify-content-around">
-      <span class="tocard">
-        <a href="#" class="span">details</a>
-      </span>
-      <span class="tocard">
-        <a href="#" class="span"> + Add to Cart</a>
-      </span>
+      <form action="{{url_for('addCart')}}" method="post">
+            <input type="hidden" name="product_id" value="{{b.id}}">
+            <input type="hidden" class="qua" name="quantity" value="1">
+            <div class="d-flex justify-content-around">
+              <span class="tocard">
+                <a href="{{url_for('single_pro', id=b.id)}}" class="span">details</a>
+              </span>
+              <span class="tocard">
+                <button type="submit" class="span">Add to cart</button>
+              </span>
+            </div>
+      </form>  
     </div>
     </div>
     </div>
   {% endfor %}
   </section>
   {% elif category %}
-  <section class="hero">
-    <div class="carousel-inner h-25">
-        <img src="{{ url_for('static', filename='images/luchiana-0319135268.webp') }}" class="d-block w-100" alt="...">
+  <section class="heroZ">
+    <div class="carousel-inner">
+        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
       </div>
     </div>
   </section>
@@ -66,14 +71,18 @@
         {% endif %}
         <span class="new">{{ cat.price }} $</span>
       </div>
-      <div class="d-flex justify-content-around">
-        <span class="tocard">
-          <a href="#" class="span">details</a>
-        </span>
-        <span class="tocard">
-          <a href="#" class="span"> + Add to Cart</a>
-        </span>
-      </div>
+      <form action="{{url_for('addCart')}}" method="post">
+        <input type="hidden" name="product_id" value="{{cat.id}}">
+        <input type="hidden" class="qua" name="quantity" value="1">
+        <div class="d-flex justify-content-around">
+          <span class="tocard">
+            <a href="{{url_for('single_pro', id=cat.id)}}" class="span">details</a>
+          </span>
+          <span class="tocard">
+            <button type="submit" class="span">Add to cart</button>
+          </span>
+        </div>
+  </form> 
       </div>
       </div>
     {% endfor %}
@@ -149,14 +158,18 @@
         {% endif %}
         <span class="new">{{ product.price }} $</span>
       </div>
-      <div class="d-flex justify-content-around">
-        <span class="tocard">
-          <a href="#" class="span">details</a>
-        </span>
-        <span class="tocard">
-          <a href="#" class="span"> + Add to Cart</a>
-        </span>
-      </div>
+      <form action="{{url_for('addCart')}}" method="post">
+        <input type="hidden" name="product_id" value="{{product.id}}">
+        <input type="hidden" class="qua" name="quantity" value="1">
+        <div class="d-flex justify-content-around">
+          <span class="tocard">
+            <a href="{{url_for('single_pro', id=product.id)}}" class="span">details</a>
+          </span>
+          <span class="tocard">
+            <button type="submit" class="span">Add to cart</button>
+          </span>
+        </div>
+  </form> 
       </div>
       </div>
     {% endfor %}

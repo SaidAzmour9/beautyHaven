@@ -54,9 +54,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-black p-4 cart" href="/cart">
+          <a class="nav-link text-black p-4 cart" href="/carts">
             <img src="{{ url_for('static', filename='images/shopping-cart.png') }}" alt="" style="width: 20px;height: 25px;">
-            <span>0</span>
+            <span>{{session['shoppingcart']|length}}</span>
           </a>
         </li>
       </ul>
