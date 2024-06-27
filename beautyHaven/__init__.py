@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_bcrypt import Bcrypt
 from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
+from flask_login import LoginManager
 import os
 
 
@@ -32,7 +33,14 @@ def create_app():
         db.create_all()
 
 create_app()
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view='customerLogin'
+login_manager.needs_refresh_message_category='danger'
+login_manager.login_message=u"please login first"
     
 from beautyHaven.admin import routes
 from beautyHaven.products import routes
 from beautyHaven.carts import carts
+from beautyHaven.customers import routes

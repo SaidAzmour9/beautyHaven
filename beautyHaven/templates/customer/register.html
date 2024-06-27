@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<section class="body pt-5">
+  <main class="form-signin mt-5">
+    <form method="post" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      <img class="d-block m-lg-auto" src="{{ url_for('static', filename='images/ewa_beauty_logo2.png' )}}" alt="" width="72" height="57">
+      <h1 class="">REGISTER</h1>
+      <div class="form-floating">
+           {{ render_field(form.name, class='form-control',placeholder='Your Name' ) }}
+        
+      </div>
+      <div class="form-floating">
+        {{ render_field(form.email, class='form-control', id='floatingInput',placeholder='name@example.com' ) }}
+        
+      </div>
+      <div class="form-floating">
+          {{ render_field(form.password, class='form-control', id='floatingPassword', placeholder='Password') }}
+        
+      </div>
+      <div class="form-floating">
+        {{ render_field(form.confirm, class='form-control', id='floatingPassword', placeholder='Password') }}
+      
+    </div>
+    <div class="form-floating">
+        {{ render_field(form.country, class='form-control', id='floatingInput',placeholder='Morocco', disabled=True ) }}
+    </div>
+    <div class="form-floating">
+        {{ render_field(form.city, class='form-control', id='floatingInput',placeholder='enter your city' ) }}
+    </div>
+    <div class="form-floating">
+        {{ render_field(form.phone, class='form-control', id='floatingInput',placeholder='06123...' ) }}
+    </div>
+    <div class="form-floating">
+        {{ render_field(form.addresse, class='form-control', id='floatingInput',placeholder='Av hassan 2...' ) }}
+    </div>
+    <div class="form-floating mt-2">
+        {{ render_field(form.zipcode, class='form-control', id='floatingInput',placeholder='80000' ) }}
+    </div>
+    <div class="form-floating mt-3">
+        {{form.profile()}}
+    </div>
+    
+    <div class="form-floating">
+        {{ form.submit(class='w-100 btn btn-lg sub') }}
+    </div>
+    <p class="mt-3 text-center text-muted">already have account?<a href="{{ url_for('customerLogin') }}" class=""> Login</a></p>
+      <p class="mt-5 mb-3 text-muted cpoy">&copy; 2023-2024</p>
+    </form>
+  </main>
+</section>
+{% endblock %}

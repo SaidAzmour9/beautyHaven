@@ -41,7 +41,7 @@ def addCart():
     
 
 
-@app.route('/carts')
+@app.route('/carts', methods=['POST','GET'])
 def getcart():
     if 'shoppingcart' not in session:
         flash('Your shopping cart is empty.', 'warning')
@@ -52,13 +52,14 @@ def getcart():
     grandtotal = 0
     cart_items = []
 
-    for key, product in shoppingcart.items():  # Use items() to correctly iterate
+    for key, product in shoppingcart.items():
         price = float(product['price'])
         quantity = int(product['quantity'])
         discount = (product['discount'] / 100) * price
         total_price_per_product = (price - discount) * quantity
         subtotal += total_price_per_product
         cart_items.append({
+            'id': key,
             'name': product['name'],
             'price': price,
             'quantity': quantity,
@@ -69,3 +70,47 @@ def getcart():
     grandtotal = subtotal 
 
     return render_template('products/carts.html', cart_items=cart_items, subtotal=subtotal, grandtotal=grandtotal)
+
+
+@app.route('/updatecarte/<int:code>', methods=['POST', 'GET'])
+def updatecarte(code):
+    if 'shoppingcart' not in session or len(session['shoppingcart']) <= 0:
+        return redirect(url_for('home'))
+
+    if request.method == "POST":
+        quantity = request.form.get('quantity')
+        try:
+            session.modified = True
+            for key, item in session['shoppingcart'].items():
+                if int(key) == code:
+                    item['quantity'] = quantity
+                    flash('Item is updated', 'success')
+                    return redirect(url_for('getcart'))
+            flash('Item not found in the cart', 'warning')
+        except Exception as e:
+            print(e)
+            flash('An error occurred while updating the item', 'danger')
+        return redirect(url_for('getcart'))
+    else:
+        return redirect(url_for('getcart'))
+
+@app.route('/deletecart/<int:code>', methods=['POST', 'GET'])
+def deletecart(code):
+    if 'shoppingcart' not in session or len(session['shoppingcart']) <= 0:
+        return redirect(url_for('home'))
+
+    try:
+        session.modified = True
+        shoppingcart = session['shoppingcart']
+        
+        if str(code) in shoppingcart:
+            del shoppingcart[str(code)]
+            session['shoppingcart'] = shoppingcart
+            flash('Item removed successfully', 'success')
+        else:
+            flash('Item not found in the cart', 'warning')
+        return redirect(url_for('getcart'))
+    except Exception as e:
+        print(e)
+        flash('An error occurred while removing the item', 'danger')
+        return redirect(url_for('getcart'))

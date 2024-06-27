@@ -5,8 +5,8 @@
             <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
         </div>
     </section>
-    <div class="container mt-5">
-        <h1>Shopping Cart</h1>
+    <div class="container -pt-5">
+        <h1 class="text-center mb-3">Shopping Cart</h1>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -15,29 +15,32 @@
                     <th>Discount</th>
                     <th>Quantity</th>
                     <th>Total</th>
+                    <th>Update</th>
                     <th>Delete</th>
                     
                 </tr>
             </thead>
             <tbody>
                 {% for product in cart_items %}
-                <tr>
-                    <td>{{ product['name'] }}</td>
-                    <td>${{ product['price'] }}</td>
-                    <td>{{ "%0.2f" | format(product['discount']) }}</td>
-                    <td>{{ product['quantity'] }}</td>
-                    <td>${{ "%0.2f" | format(product['total']) }}</td>
-                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{product.id}}">
-                        delete
-                      </button></td>
-                </tr>
+                <form action="{{ url_for('updatecarte', code=product['id']) }}" method="post">
+                    <tr>
+                        <td>{{ product['name'] }}</td>
+                        <td>${{ product['price'] }}</td>
+                        <td>{{ "%0.2f" | format(product['discount']) }}</td>
+                        <td><input type="number" name="quantity" value="{{ product['quantity'] }}" min="1" max="10"></td>
+                        <td>${{ "%0.2f" | format(product['total']) }}</td>
+                        <td><button type="submit" class="btn btn-secondary" name="update">Update</button></td>
+                        <td><a href="{{ url_for('deletecart', code=product['id']) }}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                </form>
                 {% endfor %}
+        
             </tbody>
         </table>
         <div class="d-flex justify-content-end">
             <p class="mb-0 me-5 d-flex align-items-center">
                 <span class="small text-muted me-2">Subtotal:</span> 
-                <span class="lead fw-normal">${{ "%0.2f" | format(subtotal) }}</span>
+                <span class="lead fw-normal">${{ "%0.2f" | format(subtotal)  }}</span>
             </p>
             <p class="mb-5 mt-5 me-5 d-flex align-items-center ">
                 <span class="small text-muted me-2">Grand total:</span> 

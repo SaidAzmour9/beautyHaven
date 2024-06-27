@@ -48,7 +48,7 @@ def login():
             session['email']=form.email.data
             return redirect(request.args.get('next')or url_for('index'))
         else:
-            flash('incorrect password')
+            print('incorrect password')
     return render_template('/admin/login.html',form=form)
 
 

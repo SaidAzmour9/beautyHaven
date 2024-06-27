@@ -9,7 +9,7 @@
 {% endblock %}
 <header>
   <nav class="container navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img class="d-block m-lg-auto" src="{{ url_for('static', filename='images/ewa_beauty_logo2.png') }}" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,11 +48,20 @@
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link text-black p-4" href="/login" >
-            <i class="far fa-user fa-xl mt-1"></i>
-          </a>
-        </li>
+        {% if current_user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-black p-4" href="{{ url_for('profile') }}">
+                <i class="far fa-user fa-xl mt-1"></i>
+              </a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-black p-4" href="{{ url_for('customerLogin') }}">
+                <i class="far fa-user fa-xl mt-1"></i>
+              </a>
+            </li>
+        {% endif %}
+
         <li class="nav-item">
           <a class="nav-link text-black p-4 cart" href="/carts">
             <img src="{{ url_for('static', filename='images/shopping-cart.png') }}" alt="" style="width: 20px;height: 25px;">
