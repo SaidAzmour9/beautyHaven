@@ -5,6 +5,8 @@ from flask_bcrypt import Bcrypt
 from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
 from flask_login import LoginManager
 import os
+import pickle
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 
@@ -24,6 +26,14 @@ patch_request_class(app)
 db = SQLAlchemy(app, model_class=Base)
 bcrypt = Bcrypt(app)
 
+def load_model():
+    with open('model.pkl', 'rb') as f:
+        model = pickle.load(f)
+    return model
+
+model = load_model()
+
+
 @app.route('/uploads/images/<filename>')
 def uploaded_image(filename):
     return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
@@ -39,8 +49,12 @@ login_manager.init_app(app)
 login_manager.login_view='customerLogin'
 login_manager.needs_refresh_message_category='danger'
 login_manager.login_message=u"please login first"
-    
+
+
 from beautyHaven.admin import routes
 from beautyHaven.products import routes
 from beautyHaven.carts import carts
 from beautyHaven.customers import routes
+from beautyHaven.recommandation.routes import recommend_routes
+
+app.register_blueprint(recommend_routes)

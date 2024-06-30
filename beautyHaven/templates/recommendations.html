@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Products</title>
+</head>
+<body>
+    <h1>Recommended Products</h1>
+    <ul>
+        {% for product in recommendations %}
+        <li>
+            <strong>Name:</strong> {{ product.name }}<br>
+            <strong>Brand:</strong> {{ product.brand }}<br>
+            <strong>Category:</strong> {{ product.category }}<br>
+            <strong>Price:</strong> {{ product.price }}<br>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

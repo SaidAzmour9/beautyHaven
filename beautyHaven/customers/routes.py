@@ -3,7 +3,7 @@ from flask import redirect, render_template, request, session, url_for, flash,cu
 from flask_login import login_required, current_user, logout_user, login_user
 from beautyHaven import db, app, photos, bcrypt, login_manager
 from .forms import CustomerRegister, CustomerLogin
-from .models import Register
+from .models import Register, CustomerOrder
 import secrets, os
 
 
@@ -44,3 +44,42 @@ def customer_logout():
 @login_required
 def profile():
     return render_template('customer/profile.html', user=current_user)
+
+
+@app.route('/getorder')
+@login_required
+def get_order():
+    if current_user.is_authenticated:
+        customer_id = current_user.id
+        invoice = secrets.token_hex(5)
+        try:
+            order = CustomerOrder(invoice=invoice, customer_id=customer_id, orders=session['shoppingcart'])
+            db.session.add(order)
+            db.session.commit()
+            print('Your order added')
+            return redirect(url_for('home'))
+        except Exception as e:
+            print(e)
+            print('some thing went wrong')
+            return redirect(url_for('getcart'))
+        
+@app.route('/orders/<invoice>')
+@login_required
+def orders(invoice):
+    if current_user.is_authenticated:
+        grandtotal = 0
+        subtotal = 0
+        customer_id = current_user.id
+        customer = Register.query.filter_by(id= customer_id).first()
+        orders = CustomerOrder.query.filter_by(customer_id=customer_id).first()
+        for _key, product in orders.orders.items():
+            price = float(product['price'])
+            quantity = int(product['quantity'])
+            discount = (product['discount'] / 100) * price
+            total_price_per_product = (price - discount) * quantity
+            subtotal += total_price_per_product
+            grandtotal = subtotal
+    else:
+        return redirect(url_for('customerlogin'))
+    return render_template('customer/order.html', invoice=invoice, subtotal=subtotal, grandtotal=grandtotal, customer=customer, orders=orders)
+    
