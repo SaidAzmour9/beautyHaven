@@ -9,11 +9,13 @@
 
 {% block content %}
 {% from "_formhelpers.html" import render_field %}
+
 <section class="body pt-5">
     <main class="form-signin mt-5">
         <form method="post" enctype="multipart/form-data">
             {{ form.csrf_token}}
           <img class="d-block m-lg-auto" src="{{ url_for('static', filename='images/ewa_beauty_logo2.png' )}}" alt="" width="72" height="57">
+          {% include '_messages.html' %}
           <h1 class="">LOGIN</h1>
       
           <div class="form-floating">

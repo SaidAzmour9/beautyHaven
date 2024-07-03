@@ -1,15 +1,23 @@
+<!-- recommend.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Recommendation</title>
+    <title>Skin Type Recommendation</title>
 </head>
 <body>
-    <h1>Product Recommendation</h1>
+    <h2>Enter Your Skin Type</h2>
     <form action="/recommend" method="POST">
-        <label for="skin_type">Skin Type:</label><br>
-        <input type="text" id="skin_type" name="skin_type" required><br><br>
+        <label for="skin_type">Select your skin type:</label>
+        <select name="skin_type" id="skin_type">
+            <option value="Combination">Combination</option>
+            <option value="Dry">Dry</option>
+            <option value="Normal">Normal</option>
+            <option value="Oily">Oily</option>
+            <option value="Sensitive">Sensitive</option>
+        </select>
         <button type="submit">Get Recommendations</button>
     </form>
 </body>

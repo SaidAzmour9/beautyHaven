@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Contact Us{% endblock %}</h1>
+{% endblock %}
+
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="heroZ">
+    <div class="carousel-inner">
+        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
+    </div>
+</section>
+
+        <h1 class="text-white">About Us</h1>
+ 
+<section class="about-section py-3">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Our Story</h2>
+                <p>Welcome to <strong>Your Brand Name</strong>, your ultimate destination for high-quality cosmetics and skincare products. Our journey began with a simple belief: everyone deserves to feel confident and beautiful in their own skin.</p>
+            </div>
+            <div class="col-md-12">
+                <h2>Our Mission</h2>
+                <p>At <strong>Your Brand Name</strong>, our mission is to empower individuals through beauty. We strive to offer a diverse range of products that cater to all skin types and concerns. Whether you have oily, dry, sensitive, or combination skin, our meticulously curated collection is designed to meet your unique needs.</p>
+            </div>
+            <div class="col-md-12">
+                <h2>Quality and Innovation</h2>
+                <p>We believe that quality is the cornerstone of great skincare. That’s why all our products are formulated with the finest ingredients, backed by science, and crafted with care. Our team of experts continuously researches and innovates to bring you the latest in skincare technology and trends.</p>
+            </div>
+            <div class="col-md-12">
+                <h2>Our Values</h2>
+                <ul>
+                    <li><strong>Inclusivity</strong>: Beauty is for everyone. We celebrate diversity and are committed to providing products for all skin tones and types.</li>
+                    <li><strong>Sustainability</strong>: We care for our planet as much as we care for our customers. Our products are ethically sourced, cruelty-free, and environmentally friendly.</li>
+                    <li><strong>Transparency</strong>: We believe in honesty and integrity. We are transparent about our ingredients, sourcing practices, and the efficacy of our products.</li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <h2>Join Our Community</h2>
+                <p>We are more than just a cosmetics brand; we are a community. We love connecting with our customers and hearing your stories. Follow us on social media, join our newsletter, and become a part of the <strong>Your Brand Name</strong> family.</p>
+            </div>
+            <div class="col-md-12">
+                <h2>Contact Us</h2>
+                <p>We are always here to help. If you have any questions, feedback, or just want to say hello, don’t hesitate to reach out to us at <a href="mailto:your_email@example.com">your_email@example.com</a> or through our <a href="/contact">Contact Form</a>.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

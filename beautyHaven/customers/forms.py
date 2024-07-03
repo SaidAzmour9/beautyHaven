@@ -1,7 +1,9 @@
-from wtforms import Form, BooleanField, StringField, PasswordField, validators, ValidationError, SubmitField, IntegerField
+from wtforms import Form, BooleanField, StringField, PasswordField, TextAreaField, validators, ValidationError, SubmitField, IntegerField
 from flask_wtf.file import file_required, file_allowed, FileField,FileAllowed
 from flask_wtf import FlaskForm
 from .models import Register
+from wtforms.validators import DataRequired, Email
+
 
 class CustomerRegister(FlaskForm):
     name = StringField('Name: ')
@@ -28,3 +30,10 @@ class CustomerRegister(FlaskForm):
 class CustomerLogin(FlaskForm):
     email = StringField('Email: ',[validators.Email(), validators.DataRequired()])
     password = PasswordField('Password: ',[validators.DataRequired()])
+
+
+class ContactForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    message = TextAreaField('Message', validators=[DataRequired()])
+    submit = SubmitField('Send')

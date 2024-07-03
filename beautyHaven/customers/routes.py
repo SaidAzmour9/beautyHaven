@@ -1,8 +1,9 @@
 
 from flask import redirect, render_template, request, session, url_for, flash,current_app
 from flask_login import login_required, current_user, logout_user, login_user
-from beautyHaven import db, app, photos, bcrypt, login_manager
-from .forms import CustomerRegister, CustomerLogin
+from flask_mail import Mail, Message
+from beautyHaven import db, app, photos, bcrypt, login_manager, mail
+from .forms import CustomerRegister, CustomerLogin, ContactForm
 from .models import Register, CustomerOrder
 import secrets, os
 
@@ -22,19 +23,20 @@ def customer_register():
 
 @app.route('/customer/login', methods=['GET','POST'])
 def customerLogin():
-    form = CustomerLogin()
-    if form.validate_on_submit():
-        user = Register.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user)
-            print('you are login now!')
-            next = request.args.get('next')
-            return redirect(next or url_for('home'))
-        print('incorrect email or password !')
-        return redirect(url_for('customerLogin'))
-
-    return render_template('customer/login.html', form=form)
-
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    else:
+        form = CustomerLogin()
+        if form.validate_on_submit():
+            user = Register.query.filter_by(email=form.email.data).first()
+            if user and bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                flash('you are login now!')
+                next = request.args.get('next')
+                return redirect(next or url_for('home'))
+            flash('incorrect email or password !')
+            return redirect(url_for('customerLogin'))
+        return render_template('customer/login.html', form=form)
 @app.route('/customer/logout')
 def customer_logout():
     logout_user()
@@ -56,11 +58,11 @@ def get_order():
             order = CustomerOrder(invoice=invoice, customer_id=customer_id, orders=session['shoppingcart'])
             db.session.add(order)
             db.session.commit()
-            print('Your order added')
+            flash('Your order added')
             return redirect(url_for('home'))
         except Exception as e:
-            print(e)
-            print('some thing went wrong')
+            flash(e)
+            flash('some thing went wrong')
             return redirect(url_for('getcart'))
         
 @app.route('/orders/<invoice>')
@@ -83,3 +85,24 @@ def orders(invoice):
         return redirect(url_for('customerlogin'))
     return render_template('customer/order.html', invoice=invoice, subtotal=subtotal, grandtotal=grandtotal, customer=customer, orders=orders)
     
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
+
+        msg = Message('Contact Form Submission', sender='your_email@example.com', recipients=['your_email@example.com'])
+        msg.body = f'Name: {name}\nEmail: {email}\nMessage:\n{message}'
+        mail.send(msg)
+        
+        flash('Message sent successfully!', 'success')
+        return redirect(url_for('home'))
+    return render_template('contact.html', form=form)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')

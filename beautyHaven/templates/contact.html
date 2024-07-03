@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Contact Us{% endblock %}</h1>
+{% endblock %}
+
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="heroZ">
+    <div class="carousel-inner">
+        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
+        
+    </div>
+    {% include '_messages.html' %}
+</section>
+
+<section class="container bg-white p-5">
+    <div class="d-flex flex-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3440.797708307042!2d-9.592330240475462!3d30.41348080996747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb3b6f9ab15c72f%3A0x48182b87161851df!2sEcole%20eWA!5e0!3m2!1sar!2sma!4v1719942324619!5m2!1sar!2sma" width="50%" height="auto" style="border:1;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <form method="post" action="{{ url_for('contact') }}" enctype="multipart/form-data" class="w-50 p-4">
+            <h1 class="text-center">Contact Us</h1>
+
+            <label>Your Name:</label>
+            <input type="text" name="name" class="form-control mb-3">
+
+            <label>Your Email:</label>
+            <input type="email" name="email" class="form-control mb-3">
+
+            <label>Your Message:</label>
+            <textarea name="message" class="form-control" rows="6"></textarea>
+
+            <input class="w-100 btn btn-lg sub" type="submit" value="Send Message">
+        </form>
+
+    </div>
+</section>
+{% endblock %}

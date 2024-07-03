@@ -1,6 +1,6 @@
 from flask import redirect, render_template, request, session, url_for, flash,current_app
 from beautyHaven import db, app, photos
-from .models import Brand, Category,Product
+from .models import Brand, Category,Product, Label
 from beautyHaven.admin.routes import products
 from .forms import AddProducts
 import secrets, os
@@ -31,6 +31,7 @@ def home():
     products = Product.query.filter(Product.stock > 0).order_by(Product.id.desc()).limit(6).all()
     return render_template('products/index.html', products=products, firstten=firstten, firstfour=firstfour,categorys=categorys,brands=brands)
 
+
 @app.route('/addbrand', methods=['GET','POST'])
 def addbrand():
     if 'email' not in session:
@@ -44,6 +45,20 @@ def addbrand():
         db.session.commit()
         return redirect(url_for('addbrand'))
     return render_template('products/addbrand.html')
+
+@app.route('/addlabel', methods=['GET','POST'])
+def addlabel():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    if request.method == "POST":
+        getlabel = request.form.get('label')
+        label = Label(name=getlabel)
+        db.session.add(label)
+        flash(f'the label {getlabel} added')
+        db.session.commit()
+        return redirect(url_for('addlabel'))
+    return render_template('products/addlabel.html')
 
 @app.route('/addcategory', methods=['GET','POST'])
 def addcategory():
@@ -65,6 +80,7 @@ def addproduct():
         flash('Please login first')
         return redirect('login')
     brands = Brand.query.all()
+    labels = Label.query.all()
     categories = Category.query.all()
     form = AddProducts()
     if form.validate_on_submit():
@@ -75,6 +91,7 @@ def addproduct():
         description = form.description.data
         brand_id = request.form.get('brand')
         category_id = request.form.get('category')
+        label_id = request.form.get('label')
 
         # Generate unique filenames
         img1 = photos.save(form.img1.data, name=secrets.token_hex(10) + ".")
@@ -88,7 +105,8 @@ def addproduct():
             discount=discount, 
             stock=quantity, 
             description=description, 
-            brand_id=brand_id, 
+            brand_id=brand_id,
+            label_id=label_id, 
             category_id=category_id, 
             image_1=img1, 
             image_2=img2, 
@@ -99,7 +117,7 @@ def addproduct():
         flash('The product was added successfully.')
         return redirect(url_for('addproduct'))
 
-    return render_template('products/addproduct.html', form=form, brands=brands, categories=categories)
+    return render_template('products/addproduct.html', form=form, brands=brands,labels=labels, categories=categories)
 
 @app.route('/updatebrand/<int:id>',methods=['GET','POST'])
 def updatebrand(id):
@@ -114,6 +132,20 @@ def updatebrand(id):
         db.session.commit()
         return redirect(url_for('brands'))
     return render_template('products/updatebrand.html',updatebrand=updatebrand)
+
+@app.route('/updatelabel/<int:id>',methods=['GET','POST'])
+def updatelabel(id):
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    updatelabel = Label.query.get_or_404(id)
+    label = request.form.get('label')
+    if request.method == 'POST':
+        updatelabel.name = label
+        flash('your label name updated seccesfuly')
+        db.session.commit()
+        return redirect(url_for('labels'))
+    return render_template('products/updatelabel.html',updatelabel=updatelabel)
 
 @app.route('/deletebrand/<int:id>', methods=['POST'])
 def deletebrand(id):
@@ -149,8 +181,10 @@ def updatecat(id):
 @app.route('/updateproduct/<int:id>', methods=['GET','POST'])
 def updatepro(id):
     brands = Brand.query.all()
+    labels = Label.query.all()
     categories = Category.query.all()
     brand = request.form.get('brand')
+    label = request.form.get('label')
     category = request.form.get('category')
     product = Product.query.get_or_404(id)
     form = AddProducts(request.form)
@@ -160,6 +194,7 @@ def updatepro(id):
         product.description = form.description.data
         product.stock = form.quantity.data
         product.brand_id = brand
+        product.label_id = label
         product.category_id = category
         product.discount = form.discount.data
     if request.method == 'POST':
@@ -211,7 +246,7 @@ def updatepro(id):
     form.description.data = product.description
     form.quantity.data = product.stock
     form.discount.data = product.discount
-    return render_template('products/updateproduct.html', form=form, product=product, categories=categories, brands=brands)
+    return render_template('products/updateproduct.html', form=form, product=product, labels=labels, categories=categories, brands=brands)
 
 
 @app.route('/deleteproduct/<int:id>',methods=['GET','POST'])

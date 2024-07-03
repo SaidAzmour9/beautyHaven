@@ -67,6 +67,14 @@
               </select>
           </div>
           <div>
+            <label for="brand">Label</label><br>
+            <select name="label" id="label">
+                {% for label in labels %}
+                    <option value="{{ label.id }}">{{ label.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+          <div>
               <label for="category">Category</label><br>
               <select name="category" id="category">
                   {% for category in categories %}

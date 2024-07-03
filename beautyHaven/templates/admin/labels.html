@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3 class="me-2">This is all labels:  </h3>
+<table class="table table-hover  table-bordered  ">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    
+  </thead>
+  <tbody>
+    {% for label in labels %}
+
+        <tr>
+            <th scope="row">{{label.id}}</th>
+            <td>{{label.name}}</td>
+            <td><a href="" class="btn btn-primary">edit</a></td>
+            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal-{{label.id}}">
+              delete
+            </button></td>
+        </tr>
+
+<!-- Modal -->
+        <div class="modal fade" id="exampleModal-{{label.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">delete {{ label.name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-danger">
+                are you sure you want to delete {{ label.name}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="" method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+  </tbody>
+
+
+</table>
+<button type="button" class="btn btn-dark mt-5"><a href="{{ url_for('addlabel')}}" class="text-white text-decoration-none">Add New label</a></button>
+{% endblock content %}

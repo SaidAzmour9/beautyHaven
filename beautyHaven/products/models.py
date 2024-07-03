@@ -1,41 +1,44 @@
 from datetime import datetime
-from sqlalchemy import Integer, String, Text, DateTime, ForeignKey, Float
-from sqlalchemy.orm import Mapped, mapped_column, relationship, backref
+from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey
+from sqlalchemy.orm import relationship
 from beautyHaven import db, app
-
 
 class Product(db.Model):
     __tablename__ = 'product'
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(100), nullable=False)
-    description: Mapped[str] = mapped_column(Text, nullable=True)
-    price: Mapped[float] = mapped_column(Float, nullable=False)
-    discount: Mapped[Float] = mapped_column(Float, default=0)   
-    stock: Mapped[int] = mapped_column(Integer, nullable=False)
-    
-    brand_id: Mapped[int] = mapped_column(Integer, ForeignKey('brand.id'), nullable=False)
-    brand = relationship('Brand', backref=backref('brands', lazy=True))
-    
-    category_id: Mapped[int] = mapped_column(Integer, ForeignKey('category.id'), nullable=False)
-    category = relationship('Category', backref=backref('categorys', lazy=True))
-
-    image_1 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
-    image_2 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
-    image_3 : Mapped[str] = mapped_column(String(120), nullable=False, default='default_product.jpg')
-    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100), nullable=False)
+    description = Column(Text, nullable=True)
+    price = Column(Float, nullable=False)
+    discount = Column(Float, default=0)
+    stock = Column(Integer, nullable=False)
+    brand_id = Column(Integer, ForeignKey('brand.id'), nullable=False)
+    brand = relationship('Brand', backref='products')
+    label_id = Column(Integer, ForeignKey('label.id'), nullable=False)
+    label = relationship('Label', backref='products')
+    category_id = Column(Integer, ForeignKey('category.id'), nullable=False)
+    category = relationship('Category', backref='products')
+    image_1 = Column(String(120), nullable=False, default='default_product.jpg')
+    image_2 = Column(String(120), nullable=False, default='default_product.jpg')
+    image_3 = Column(String(120), nullable=False, default='default_product.jpg')
 
     def __repr__(self):
         return f"Product('{self.name}', '{self.price}', '{self.stock}')"
 
-
-
 class Brand(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
+    __tablename__ = 'brand'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30), unique=True, nullable=False)
+
+class Label(db.Model):
+    __tablename__ = 'label'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30), unique=True, nullable=False)
 
 class Category(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String(30), unique=True, nullable=False)
+    __tablename__ = 'category'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(30), unique=True, nullable=False)
 
+# Ensure all models are created in the database
 with app.app_context():
     db.create_all()

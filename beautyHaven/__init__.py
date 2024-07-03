@@ -4,9 +4,12 @@ from sqlalchemy.orm import DeclarativeBase
 from flask_bcrypt import Bcrypt
 from flask_uploads import IMAGES, UploadSet, configure_uploads, patch_request_class
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_mail import Mail, Message
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 
 
@@ -23,6 +26,16 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)
 
+
+app.config['MAIL_SERVER'] = 'smtp.yourprovider.com' 
+app.config['MAIL_PORT'] = 587 
+app.config['MAIL_USE_TLS'] = True  
+app.config['MAIL_USERNAME'] = 'your_email@example.com'  
+app.config['MAIL_PASSWORD'] = 'your_password'  
+
+
+mail = Mail(app)
+
 db = SQLAlchemy(app, model_class=Base)
 bcrypt = Bcrypt(app)
 
@@ -33,6 +46,7 @@ def load_model():
 
 model = load_model()
 
+migrate = Migrate(app, db)
 
 @app.route('/uploads/images/<filename>')
 def uploaded_image(filename):

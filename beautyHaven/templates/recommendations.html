@@ -1,3 +1,5 @@
+<!-- results.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,16 +8,21 @@
     <title>Recommended Products</title>
 </head>
 <body>
-    <h1>Recommended Products</h1>
+    <h2>Recommended Products for Skin Type: {{ skin_type }}</h2>
+    
+    {% if recommendations %}
     <ul>
         {% for product in recommendations %}
         <li>
-            <strong>Name:</strong> {{ product.name }}<br>
-            <strong>Brand:</strong> {{ product.brand }}<br>
-            <strong>Category:</strong> {{ product.category }}<br>
-            <strong>Price:</strong> {{ product.price }}<br>
+            <strong>{{ product.brand }}</strong> - {{ product.name }} (Price: ${{ product.price }})
         </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No products found for the selected skin type.</p>
+    {% endif %}
+    
+    <br>
+    <a href="/">Back to Recommendations</a>
 </body>
 </html>

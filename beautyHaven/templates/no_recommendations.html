@@ -1,0 +1,10 @@
+<!-- no_recommendations.html -->
+<h2>We couldn't find specific recommendations for {{ skin_type }} yet.</h2>
+<p>Browse all products or try a different skin type!</p>
+
+<h3>Some of Our Products</h3>
+<ul>
+  {% for product in all_products %}
+    <li>{{ product.name }} - {{ product.brand.name }} - {{ product.category.name }} -{{ product.label.name }} - ${{ product.price }}</li>
+  {% endfor %}
+</ul>

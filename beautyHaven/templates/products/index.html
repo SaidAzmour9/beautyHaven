@@ -97,7 +97,7 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="{{ url_for('static', filename='images/luchiana-0307815169.webp') }}" class="d-block w-100" alt="...">
+          <img src="{{ url_for('static', filename='images/luchiana-0319135268.webp') }}" class="d-block w-100" alt="...">
           <div class="hero-content">
             <div class="">
               <h2 class="">Lorem <br>dolor sit</h2>
@@ -137,6 +137,16 @@
       </button>
     </div>
   </section>
+  <div class="logo-slider" data-v-4ef8651c="">
+    <div class="logos-slide" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/Arbonne.png') }}" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/Clinique.png') }}" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/Dove.png') }}" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/LLogo.png') }}" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/Oriflame.png') }}" data-v-4ef8651c="">
+      <img src="{{ url_for('static', filename='images/Sephora_.png') }}" data-v-4ef8651c="">
+    </div>
+  </div>
     <div class="latest">
       <h2><span>LATEST</span> <br> PRODUCTS</h2>
     </div>
@@ -146,18 +156,19 @@
       <img src="{{ url_for('uploaded_image', filename='/' + product.image_1) }}" class="card-img-top" alt="...">
       <hr>
       <div class="card-body">
-        <h3 class="text-center"><a href="#">{{ firstfour(product.name) }}</a></h3>
+        <h3 class="text-center"><a href="{{url_for('single_pro', id=product.id)}}">{{ firstfour(product.name) }}</a></h3>
         <p class="card-text text-center">{{ firstten(product.description) }}</p>
         {% if product.discount > 0 %}
         <span class="disc">-{{ product.discount |int }}%</span>
         {% endif %}
         <span class="brand">{{ product.brand.name }}</span>
-      <div class="prices">
-        {% if product.discount > 0 %}
-          <span><del class="last">{{ product.price }} $</del> - </span>
-        {% endif %}
-        <span class="new">{{ product.price }} $</span>
-      </div>
+        <div class="prices">
+          {% if product.discount > 0 %}
+            {% set original_price = product.price / (1 - (product.discount / 100)) %}
+            <span><del class="last">{{ original_price | round(2) }} $</del> - </span>
+          {% endif %}
+          <span class="new">{{ product.price }} $</span>
+        </div>
       <form action="{{url_for('addCart')}}" method="post">
         <input type="hidden" name="product_id" value="{{product.id}}">
         <input type="hidden" class="qua" name="quantity" value="1">
@@ -189,6 +200,25 @@
       <a href="#"><button>EXPLORE</button></a>
     </div>
     <img src="{{ url_for('static', filename='images/imgs2.png') }}" alt="">
+  </div>
+</section>
+<section class="container my-xl-5"> 
+  <div class=" d-flex justify-content-between align-items-center pt-5 pb-5">
+    <div class="text-center">
+      <i class="fas fa-shipping-fast fa-4x"></i>
+      <h3 class="my-5">FREE SHIPPING</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+    </div>
+    <div class="text-center">
+      <i class="fas fa-headset fa-4x"></i>
+      <h3 class="my-5">24/7 SUPPORT</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+    </div>
+    <div class="text-center">
+      <i class="fas fa-money-check-alt fa-4x"></i>
+      <h3 class="my-5">MONEY BACK</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+    </div>
   </div>
 </section>
 {% endblock content %}

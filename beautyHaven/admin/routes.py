@@ -1,7 +1,7 @@
 from flask import render_template,redirect,request,session, url_for, flash
 
 from beautyHaven import app, db, bcrypt
-from beautyHaven.products.models import Product, Category, Brand
+from beautyHaven.products.models import Product, Category, Brand, Label
 from .forms import RegistrationForm,LoginForm
 from .models import User
 
@@ -30,6 +30,14 @@ def categorys():
         return redirect('login')
     categorys = Category.query.all()
     return render_template('/admin/categorys.html',categorys=categorys)
+
+@app.route('/labels')
+def labels():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    labels = Label.query.all()
+    return render_template('/admin/labels.html',labels=labels)
 
 @app.route('/brands')
 def brands():
