@@ -37,6 +37,12 @@ def customerLogin():
             flash('incorrect email or password !')
             return redirect(url_for('customerLogin'))
         return render_template('customer/login.html', form=form)
+
+@app.route('/customer/resetpassword')
+def resetpassword():
+    return render_template('customer/resetpassword.html')
+
+
 @app.route('/customer/logout')
 def customer_logout():
     logout_user()
@@ -106,3 +112,4 @@ def contact():
 @app.route('/about')
 def about():
     return render_template('about.html')
+

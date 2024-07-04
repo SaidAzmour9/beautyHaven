@@ -45,7 +45,7 @@ def addCart():
 def getcart():
     if 'shoppingcart' not in session:
         flash('Your shopping cart is empty.', 'warning')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
 
     shoppingcart = session['shoppingcart']
     subtotal = 0

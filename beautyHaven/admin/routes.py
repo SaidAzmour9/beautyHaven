@@ -4,6 +4,7 @@ from beautyHaven import app, db, bcrypt
 from beautyHaven.products.models import Product, Category, Brand, Label
 from .forms import RegistrationForm,LoginForm
 from .models import User
+from beautyHaven.customers.models import Register
 
 
 @app.route('/admin')
@@ -71,3 +72,13 @@ def register():
         flash('Thanks for registering')
         return redirect(url_for('login'))
     return render_template('admin/register.html', form=form)
+
+
+
+@app.route('/customers')
+def customers():
+    if 'email' not in session:
+        flash('Please login first')
+        return redirect('login')
+    customers = Register.query.all()
+    return render_template('/admin/customers.html',customers=customers)
