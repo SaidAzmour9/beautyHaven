@@ -45,3 +45,15 @@ window.addEventListener('scroll', function() {
 
   var copy = document.querySelector(".logos-slide").cloneNode(true);
   document.querySelector(".logo-slider").appendChild(copy);
+
+  document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            setTimeout(() => {
+                alert.classList.add('hidden');
+            }, 600); // Match the transition duration
+        });
+    }, 3000); // 3 seconds
+});

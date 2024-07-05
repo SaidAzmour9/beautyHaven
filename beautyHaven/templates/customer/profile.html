@@ -25,5 +25,15 @@
                 <p class="d-flex justify-content-around"><a href="{{ url_for('customer_logout') }}" class="w-25 btn btn-lg sub">Logout</a><a href="" class="w-25 btn btn-lg sub">Edit</a></p>
             </div>
         </div>
+        {% if has_orders %}
+            <h2>Orders:</h2>
+            <ul>
+                {% for invoice in invoices %}
+                <li><a href="{{ url_for('order_success', invoice=invoice) }}">Invoice: {{ invoice }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
     </div>
+
 {% endblock %}

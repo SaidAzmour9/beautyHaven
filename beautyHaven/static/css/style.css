@@ -403,3 +403,68 @@ header.scrolled {
     }
 }
 
+
+.alert { 
+    color: rgb(0, 0, 0);
+    position: absolute;
+    border: none;
+    border-radius: 4px;
+    margin-left: 40%;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.6s;
+}
+
+.invoice-details {
+    margin-bottom: 20px;
+}
+
+.invoice-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Order summary table styles */
+.order-summary {
+    margin-bottom: 20px;
+}
+
+.order-summary table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-summary th, .order-summary td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.order-summary th {
+    background-color: #f2f2f2;
+}
+
+/* Totals section styles */
+.totals {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Back button styles */
+.back-button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-button .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-button .btn:hover {
+    background-color: #45a049;
+}

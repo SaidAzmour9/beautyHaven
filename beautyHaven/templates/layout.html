@@ -163,6 +163,7 @@
   </div>
     <div class="b-example-divider"style="margin-left: 282px;height: 100%;"></div>
     <div class="flex-shrink-0 p-3 bg-white" style="width: 70%;">
+      {% include '_messages.html' %}
       {% block content %}
       
       {% endblock content %}
@@ -185,6 +186,17 @@
         }
       });
     }
+    document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function() {
+      const alerts = document.querySelectorAll('.alert');
+      alerts.forEach(alert => {
+          alert.style.opacity = '0';
+          setTimeout(() => {
+              alert.classList.add('hidden');
+          }, 600); 
+      });
+  }, 3000); 
+});
 
     document.addEventListener('DOMContentLoaded', setActiveLink);
   </script>

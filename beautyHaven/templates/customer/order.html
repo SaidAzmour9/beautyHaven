@@ -1,53 +1,66 @@
 {% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Error 403{% endblock %}</h1>
+{% endblock %}
+
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
 {% block content %}
-    <section class="heroZ">
-        <div class="carousel-inner">
-            <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
+<div class="container">
+    <div class="text-center pt-5">
+        <h1 class="pt-5">Order Details</h1>
+        
+        <div class="invoice-details text-start">
+            <h2>Invoice: {{ invoice }}</h2>
+            <p><strong>Customer Name:</strong> {{ customer.name }}</p>
+            <p><strong>Customer Email:</strong> {{ customer.email }}</p>
+            <p><strong>Customer Address:</strong> {{ customer.addresse }}</p>
+            <p><strong>Customer City:</strong> {{ customer.city }}</p>
+            <p><strong>Customer Country:</strong> {{ customer.country }}</p>
+            <p><strong>Customer Phone:</strong> {{ customer.phone }}</p>
+            <p><strong>Order Status:</strong> {{ orders.status }}</p>
         </div>
-    </section>
-    <div class="container -pt-5">
-        <h1 class="text-center mb-3">Shopping Cart</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Discount</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                    
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in cart_items %}
-                <form action="" method="post">
+    
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in orders.orders.values() %}
                     <tr>
                         <td>{{ product['name'] }}</td>
                         <td>${{ product['price'] }}</td>
-                        <td>{{ "%0.2f" | format(product['discount']) }}</td>
-                        <td><input type="number" name="quantity" value="{{ product['quantity'] }}" min="1" max="10"></td>
-                        <td>${{ "%0.2f" | format(product['total']) }}</td>
-                        
+                        <td>{{ product['quantity'] }}</td>
+                        <td>{{ product['discount'] }}%</td>
+                        {% set price_float = product['price'] | float %}
+                        {% set discount_float = product['discount'] | float %}
+                        {% set discounted_price = (price_float * (1 - (discount_float / 100))) %}
+                        <td>${{ discounted_price * product['quantity'] | int }}</td>
                     </tr>
-                </form>
-                {% endfor %}
-        
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-end">
-            <p class="mb-0 me-5 d-flex align-items-center">
-                <span class="small text-muted me-2">Subtotal:</span> 
-                <span class="lead fw-normal">${{ "%0.2f" | format(subtotal)  }}</span>
-            </p>
-            <p class="mb-5 mt-5 me-5 d-flex align-items-center ">
-                <span class="small text-muted me-2">Grand total:</span> 
-                <span class="lead fw-normal">${{"%0.2f" | format(grandtotal)}}</span>
-            </p>
+                    {% endfor %}
+                </tbody>
+            </table>
+    
+            <div class="totals">
+                <p><strong>Subtotal:</strong> ${{ subtotal }}</p>
+                <p><strong>Grand Total:</strong> ${{ grandtotal }}</p>
+            </div>
         </div>
-        <div class="d-flex justify-content-center float-none mt-3 mb-5">
-            <a href="{{url_for('home')}}" class="btn btn-light btn-lg me-2">Continue shopping</a>
-            <a href="{{url_for('get_order')}}" class="btn btn-primary btn-lg">Proceed to checkout</a>
+    
+        <div class="back-button">
+            <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
         </div>
     </div>
+</div>
 {% endblock %}
