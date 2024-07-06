@@ -20,7 +20,11 @@ def map_skin_type_to_category(skin_type):
         'Oily': 3,
         'Sensitive': 4
     }
+<<<<<<< HEAD
     return categories.get(skin_type, -1) 
+=======
+    return categories.get(skin_type, -1)
+>>>>>>> ea676c3fff934a3927d1c9c3449d4fc7da3242a0
 
 @recommend_routes.route('/recommend', methods=['GET', 'POST'])
 def recommend_products():
@@ -28,16 +32,27 @@ def recommend_products():
         skin_type = request.form['skin_type']
         print(f"User-selected skin type: {skin_type}")
 
+<<<<<<< HEAD
+=======
+        
+>>>>>>> ea676c3fff934a3927d1c9c3449d4fc7da3242a0
         category = map_skin_type_to_category(skin_type)
         if category == -1:
             return "Invalid skin type" 
         
         print(f"Mapped category: {category}")
 
+<<<<<<< HEAD
         predicted_skin_type = model.predict([[category]])[0] 
         print(f"Predicted skin type: {predicted_skin_type}") 
 
         
+=======
+        
+        predicted_skin_type = model.predict([[category]])[0]
+        print(f"Predicted skin type: {predicted_skin_type}")
+
+>>>>>>> ea676c3fff934a3927d1c9c3449d4fc7da3242a0
         label = Label.query.filter_by(name=skin_type).first()
         print(f"Label found: {label}")
         if label:
@@ -57,5 +72,12 @@ def recommend_products():
                 'description': product.description,
                 'discount': product.discount
             })
+<<<<<<< HEAD
         return render_template('recommendations.html', skin_type=skin_type, recommendations=recommendations)
     return render_template('recommend.html')
+=======
+        
+        return render_template('recommendations.html', skin_type=skin_type, recommendations=recommendations)
+
+    return render_template('recommend.html')
+>>>>>>> ea676c3fff934a3927d1c9c3449d4fc7da3242a0
