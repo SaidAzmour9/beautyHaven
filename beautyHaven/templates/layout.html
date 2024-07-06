@@ -6,11 +6,12 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
-    <title>Sidebars · Bootstrap v5.0</title>
+    <title>Admin Pages</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebars.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
 
     <style>
@@ -104,8 +105,8 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="/" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+        <a href="/admin" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href=""></svg>
           Home
         </a>
       </li>
@@ -203,5 +204,6 @@
 
   <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 <script src="https://kit.fontawesome.com/dbac9ef2c3.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!--  <script src="{{ url_for('static', filename='js/sidebars.js') }}"></script>-->
 </body>

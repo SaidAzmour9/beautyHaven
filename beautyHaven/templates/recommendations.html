@@ -1,28 +1,60 @@
-<!-- results.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recommended Products</title>
-</head>
-<body>
-    <h2>Recommended Products for Skin Type: {{ skin_type }}</h2>
-    
-    {% if recommendations %}
-    <ul>
-        {% for product in recommendations %}
-        <li>
-            <strong>{{ product.brand }}</strong> - {{ product.name }} (Price: ${{ product.price }})
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No products found for the selected skin type.</p>
-    {% endif %}
-    
+{% block header %}
+  <h1>{% block title %}Recommended Products{% endblock %}</h1>
+{% endblock %}
+
+{% block login_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="heroZ">
+    <div class="carousel-inner">
+        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
+      </div>
+    </div>
+  </section>
+    <div class="latest">
+      <h2><span>Recommended Products for Skin Type:</span> <br> {{ skin_type }}</h2>
+    </div>
+
+    <section class="container p-5 d-flex justify-content-around flex-wrap justify-content-center">
+        {% if recommendations %}
+            {% for product in recommendations %}
+            <div class="card" style="width: 18rem;">
+                {% if product.image_1 %}
+                    <img src="{{ url_for('uploaded_image', filename='/' + product.image_1) }}" class="card-img-top" alt="...">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/default_image.png') }}" class="card-img-top" alt="...">
+                {% endif %}
+                <hr>
+                <div class="card-body">
+                <h3 class="text-center"><a href="{{ url_for('single_pro', id=product.id) }}">{{ product.name }}</a></h3>
+                <p class="card-text text-center">{{ product.name }}</p>
+                <span class="brand">{{ product.brand }}</span>
+                <div class="prices">
+                    <span class="new">{{ product.price }} $</span>
+                </div>
+                <form action="{{ url_for('addCart') }}" method="post">
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" class="qua" name="quantity" value="1">
+                    <div class="d-flex justify-content-around">
+                    <span class="tocard">
+                        <a href="{{ url_for('single_pro', id=product.id) }}" class="span">details</a>
+                    </span>
+                    <span class="tocard">
+                        <button type="submit" class="span">Add to cart</button>
+                    </span>
+                    </div>
+                </form> 
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p>No products found for the selected skin type.</p>
+        {% endif %}
+    </section>
     <br>
-    <a href="/">Back to Recommendations</a>
-</body>
-</html>
+        <a href="/">Back to Home</a>
+{% endblock %}
