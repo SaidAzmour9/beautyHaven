@@ -28,7 +28,7 @@ Clone the project
 
 ```bash
   cd beatyHaven
-
+```
 Create and activate a virtual environment(Windows):
 
 ```bash
