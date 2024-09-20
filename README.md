@@ -26,6 +26,9 @@ Clone the project
   git clone https://github.com/SaidAzmour9/beautyHaven
 ```
 
+```bash
+  cd beatyHaven
+```
 Create and activate a virtual environment(Windows):
 
 ```bash
