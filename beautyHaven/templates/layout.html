@@ -37,7 +37,8 @@
       }
     </style>
 
-    
+{% block single_css %}
+{% endblock %}
     <!-- Custom styles for this template -->
   </head>
 <body class="bg-gray">
@@ -128,12 +129,7 @@
           Brands
         </a>
       </li>
-      <li>
-        <a href="/labels" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-          Labels
-        </a>
-      </li>
+      
       <li>
         <a href="/customers" class="nav-link text-white">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
@@ -148,18 +144,8 @@
       </li>
     </ul>
     <hr>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>mdo</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
+    <div class="hidden">
+        <strong>Ewa Beauty Admin Panel</strong>
     </div>
   </div>
     <div class="b-example-divider"style="margin-left: 282px;height: 100%;"></div>
@@ -172,7 +158,7 @@
     </div>
   </main>
   <script>
-    // Function to set the active link based on the current URL
+    
     function setActiveLink() {
       const navLinks = document.querySelectorAll('.nav-link');
       const currentUrl = window.location.pathname;

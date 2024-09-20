@@ -1,87 +1,100 @@
 {% extends 'layout.html' %}
-
+{% block single_css %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/55555.css') }}">
+{% endblock %}
 {% block content %}
+    <h1>Add New Product</h1>
     <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
+        
         <div>
-            {{ form.name.label }}<br>
-            {{ form.name(size=20) }}<br>
+            <label for="name">Name</label><br>
+            {{ form.name(id='name', size=20) }}<br>
             {% for error in form.name.errors %}
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
         </div>
+
         <div>
-            {{ form.price.label }}<br>
-            {{ form.price(size=20) }}<br>
+            <label for="price">Price</label><br>
+            {{ form.price(id='price', size=20) }}<br>
             {% for error in form.price.errors %}
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
         </div>
+
         <div>
-            {{ form.discount.label }}<br>
-            {{ form.discount(size=20) }}<br>
+            <label for="discount">Discount</label><br>
+            {{ form.discount(id='discount', size=20, value="0.00") }}<br>
         </div>
+
         <div>
-            {{ form.quantity.label }}<br>
-            {{ form.quantity(size=20) }}<br>
+            <label for="quantity">Quantity</label><br>
+            {{ form.quantity(id='quantity', size=20) }}<br>
             {% for error in form.quantity.errors %}
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
         </div>
+
         <div>
-            {{ form.description.label }}<br>
-            {{ form.description(rows=5, cols=40) }}<br>
+            <label for="description">Description</label><br>
+            {{ form.description(id='description', rows=4, cols=40) }}<br>
             {% for error in form.description.errors %}
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
         </div>
-        <div class="">
-          <div class="d-flex">
-            {{ form.img1.label }}<br>
-            {{ form.img1(required=True) }}<br>
+
+        <div>
+            <label for="image1">Image 1</label><br>
+            {{ form.img1(id='image1', required=True) }}<br>
             {% for error in form.img1.errors %}
                 <span style="color: red;">[{{ error }}]</span><br>
             {% endfor %}
-          </div>
-          <div class="d-flex">
-              {{ form.img2.label }}<br>
-              {{ form.img2(required=True) }}<br>
-              {% for error in form.img2.errors %}
-                  <span style="color: red;">[{{ error }}]</span><br>
-              {% endfor %}
-          </div>
-          <div class="d-flex">
-                {{ form.img3.label }}<br>
-                {{ form.img3(required=True) }}<br>
-                {% for error in form.img3.errors %}
-                    <span style="color: red;">[{{ error }}]</span><br>
-                {% endfor %}
-          </div>
         </div>
-          <div>
-              <label for="brand">Brand</label><br>
-              <select name="brand" id="brand">
-                  {% for brand in brands %}
-                      <option value="{{ brand.id }}">{{ brand.name }}</option>
-                  {% endfor %}
-              </select>
-          </div>
-          <div>
-            <label for="brand">Label</label><br>
-            <select name="label" id="label">
+
+        <div>
+            <label for="image2">Image 2</label><br>
+            {{ form.img2(id='image2', required=False) }}<br>
+            {% for error in form.img2.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="image3">Image 3</label><br>
+            {{ form.img3(id='image3', required=False) }}<br>
+            {% for error in form.img3.errors %}
+                <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+        </div>
+
+        <div>
+            <label for="brand">Brand</label><br>
+            <select id="brand" name="brand">
+                {% for brand in brands %}
+                    <option value="{{ brand.id }}">{{ brand.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="label">Label</label><br>
+            <select id="label" name="label">
                 {% for label in labels %}
                     <option value="{{ label.id }}">{{ label.name }}</option>
                 {% endfor %}
             </select>
         </div>
-          <div>
-              <label for="category">Category</label><br>
-              <select name="category" id="category">
-                  {% for category in categories %}
-                      <option value="{{ category.id }}">{{ category.name }}</option>
-                  {% endfor %}
-              </select>
-          </div>
-        <button type="submit">Add Product</button>
+
+        <div>
+            <label for="category">Category</label><br>
+            <select id="category" name="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="submit" value="Add Product">
     </form>
 {% endblock content %}

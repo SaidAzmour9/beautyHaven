@@ -1,60 +1,72 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+</head>
+<body>
+    <h1>Recommendations for {{ skin_type }} Skin Type</h1>
+    {% if recommendations %}
+        <ul>
+            {% for recommendation in recommendations %}
+            <li class="scrollbar-item">
+              <div class="shop-card">
 
-{% block header %}
-  <h1>{% block title %}Recommended Products{% endblock %}</h1>
-{% endblock %}
 
-{% block login_css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
-{% endblock %}
+                <div class="card-banner img-holder" style="--width: 540; --height: 720;">
+                    <h2>{{ recommendation.name }}</h2>
+                    <p>Brand: {{ recommendation.brand }}</p>
+                    <p>Price: ${{ recommendation.price }}</p>
+                    <p>Discount: {{ recommendation.discount }}%</p>
+                    <p>Discount: {{ recommendation.Ingredients }}%</p>
+                    <p>{{ recommendation.description }}</p>
+                  <div class="card-actions">
 
-{% block content %}
-<section class="heroZ">
-    <div class="carousel-inner">
-        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
-      </div>
-    </div>
-  </section>
-    <div class="latest">
-      <h2><span>Recommended Products for Skin Type:</span> <br> {{ skin_type }}</h2>
-    </div>
+                    <button class="action-btn" aria-label="add to cart">
+                      <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+                    </button>
 
-    <section class="container p-5 d-flex justify-content-around flex-wrap justify-content-center">
-        {% if recommendations %}
-            {% for product in recommendations %}
-            <div class="card" style="width: 18rem;">
-                {% if product.image_1 %}
-                    <img src="{{ url_for('uploaded_image', filename='/' + product.image_1) }}" class="card-img-top" alt="...">
-                {% else %}
-                    <img src="{{ url_for('static', filename='images/default_image.png') }}" class="card-img-top" alt="...">
-                {% endif %}
-                <hr>
-                <div class="card-body">
-                <h3 class="text-center"><a href="{{ url_for('single_pro', id=product.id) }}">{{ product.name }}</a></h3>
-                <p class="card-text text-center">{{ product.name }}</p>
-                <span class="brand">{{ product.brand }}</span>
-                <div class="prices">
-                    <span class="new">{{ product.price }} $</span>
+                  </div>
                 </div>
-                <form action="{{ url_for('addCart') }}" method="post">
-                    <input type="hidden" name="product_id" value="{{ product.id }}">
-                    <input type="hidden" class="qua" name="quantity" value="1">
-                    <div class="d-flex justify-content-around">
-                    <span class="tocard">
-                        <a href="{{ url_for('single_pro', id=product.id) }}" class="span">details</a>
-                    </span>
-                    <span class="tocard">
-                        <button type="submit" class="span">Add to cart</button>
-                    </span>
-                    </div>
-                </form> 
+
+                <div class="card-content">
+
+                  <div class="price">
+                    {% if product.discount > 0 %}
+                    {% set original_price = product.price / (1 - (product.discount / 100)) %}
+                    <del class="del">{{ original_price | round(2) }} $</del>
+                    {% endif %}
+                    <span class="span">{{ product.price }} $</span>
+                  </div>
+
+                  <h3>
+                    <a href="#" class="card-title">{{ product.name }}</a>
+                  </h3>
+
+                  <div class="card-rating">
+
+                    <p class="rating-text">Rank : 4.4</p>
+
+                  </div>
+
                 </div>
-            </div>
+
+              </div>
+            </li>
+                <li>
+                    <h2>{{ recommendation.name }}</h2>
+                    <p>Brand: {{ recommendation.brand }}</p>
+                    <p>Price: ${{ recommendation.price }}</p>
+                    <p>Discount: {{ recommendation.discount }}%</p>
+                    <p>Discount: {{ recommendation.Ingredients }}%</p>
+                    <p>{{ recommendation.description }}</p>
+                </li>
             {% endfor %}
-        {% else %}
-        <p>No products found for the selected skin type.</p>
-        {% endif %}
-    </section>
-    <br>
-        <a href="/">Back to Home</a>
-{% endblock %}
+        </ul>
+    {% else %}
+        <p>No recommendations available for this skin type.</p>
+    {% endif %}
+    
+</body>
+</html>

@@ -25,7 +25,7 @@ def login_required_admin(f):
 
 @app.route('/admin')
 @login_required_admin
-def admin_home():
+def index():
     product_count = Product.query.count()
     category_count = Category.query.count()
     customer_count = Register.query.count()

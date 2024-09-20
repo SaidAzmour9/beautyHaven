@@ -139,7 +139,7 @@ def contact():
         email = form.email.data
         message = form.message.data
 
-        msg = Message('Contact Form Submission', sender='your_email@example.com', recipients=['your_email@example.com'])
+        msg = Message('Contact Form Submission', sender=email, recipients=mail)
         msg.body = f'Name: {name}\nEmail: {email}\nMessage:\n{message}'
         mail.send(msg)
         

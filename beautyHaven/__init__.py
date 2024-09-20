@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Blueprint, Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from flask_bcrypt import Bcrypt
@@ -27,11 +27,11 @@ configure_uploads(app, photos)
 patch_request_class(app)
 
 
-app.config['MAIL_SERVER'] = 'smtp.yourprovider.com' 
-app.config['MAIL_PORT'] = 587 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com' 
+app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = True  
-app.config['MAIL_USERNAME'] = 'your_email@example.com'  
-app.config['MAIL_PASSWORD'] = 'your_password'  
+app.config['MAIL_USERNAME'] = 'azmour2016maroc@gmail.com'  
+app.config['MAIL_PASSWORD'] = 'aufg ialy ozyo pfza'  
 
 
 mail = Mail(app)
@@ -51,6 +51,14 @@ migrate = Migrate(app, db)
 @app.route('/uploads/images/<filename>')
 def uploaded_image(filename):
     return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
+
+recommend_routes = Blueprint('recommend_routes', __name__)
+
+# Define your routes here
+@recommend_routes.route('/recommend')
+def recommend():
+    # Your recommendation logic here
+    return "Recommendations Page"
 
 def create_app():
     with app.app_context():

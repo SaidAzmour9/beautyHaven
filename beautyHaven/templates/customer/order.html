@@ -10,18 +10,25 @@
 
 {% block content %}
 <div class="container">
-    <div class="text-center pt-5">
+    <div class="text-center pt-5" style="background-color: white;">
         <h1 class="pt-5">Order Details</h1>
         
         <div class="invoice-details text-start">
-            <h2>Invoice: {{ invoice }}</h2>
-            <p><strong>Customer Name:</strong> {{ customer.name }}</p>
-            <p><strong>Customer Email:</strong> {{ customer.email }}</p>
-            <p><strong>Customer Address:</strong> {{ customer.addresse }}</p>
-            <p><strong>Customer City:</strong> {{ customer.city }}</p>
-            <p><strong>Customer Country:</strong> {{ customer.country }}</p>
-            <p><strong>Customer Phone:</strong> {{ customer.phone }}</p>
-            <p><strong>Order Status:</strong> {{ orders.status }}</p>
+            <div class="d-flex justify-content-between">
+                
+                <div>
+                    <h2>Invoice: {{ invoice }}</h2>
+                    <p><strong>Customer Name:</strong> {{ customer.name }}</p>
+                    <p><strong>Customer Email:</strong> {{ customer.email }}</p>
+                    <p><strong>Order Status:</strong> {{ orders.status }}</p>
+                </div>
+                <div>
+                    <p><strong>Customer Address:</strong> {{ customer.addresse }}</p>
+                    <p><strong>Customer City:</strong> {{ customer.city }}</p>
+                    <p><strong>Customer Country:</strong> {{ customer.country }}</p>
+                    <p><strong>Customer Phone:</strong> {{ customer.phone }}</p>
+                </div>
+            </div>
         </div>
     
         <div class="order-summary">
@@ -57,10 +64,7 @@
                 <p><strong>Grand Total:</strong> ${{ grandtotal }}</p>
             </div>
         </div>
-    
-        <div class="back-button">
-            <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
-        </div>
+
     </div>
 </div>
 {% endblock %}

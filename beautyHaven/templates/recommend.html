@@ -1,76 +1,35 @@
-{% extends 'base.html' %}
-
-{% block header %}
-  <h1>{% block title %}Recommended Products{% endblock %}</h1>
-{% endblock %}
-
-{% block login_css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
-<style>
-
-    form {
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 400px;
-        text-align: center;
-    }
-    label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-    select {
-        width: 100%;
-        padding: 10px;
-        margin: 20px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    option{
-        padding: 10px;
-        font-size: 20px;
-    }
-    button {
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    button:hover {
-        background-color: #0056b3;
-    }
-</style>
-{% endblock %}
-
-{% block content %}
-<section class="heroZ">
-    <div class="carousel-inner">
-        <img src="{{ url_for('static', filename='images/cover.jpg') }}" class="" alt="...">
-      </div>
-    </div>
-  </section>
-    <div class="latest">
-      <h5><span>Recommended Products for Skin Type:</span> <br> {{ skin_type }}</h5>
-    </div>
-
-    <div class="container d-flex justify-content-center mb-5">
-        <form action="/recommend" method="POST">
-            
-            <label for="skin_type">Select your skin type:</label>
-            <select name="skin_type" id="skin_type">
-                <option value="Combination">Combination</option>
-                <option value="Dry">Dry</option>
-                <option value="Normal">Normal</option>
-                <option value="Oily">Oily</option>
-                <option value="Sensitive">Sensitive</option>
-            </select>
-            <button type="submit">Get Recommendations</button>
-        </form>
-    </div>
-{%endblock%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendation</title>
+</head>
+<body>
+    <h1>Find the Best Products for Your Skin Type</h1>
+    <form method="POST">
+        <label for="skin_type">Skin Type:</label>
+        <select name="skin_type" id="skin_type" required>
+            <option value="Combination">Combination</option>
+            <option value="Dry">Dry</option>
+            <option value="Normal">Normal</option>
+            <option value="Oily">Oily</option>
+            <option value="Sensitive">Sensitive</option>
+        </select>
+        <br>
+        <label for="min_price">Minimum Price:</label>
+        <input type="number" name="min_price" id="min_price">
+        <br>
+        <label for="max_price">Maximum Price:</label>
+        <input type="number" name="max_price" id="max_price">
+        <br>
+        <label for="min_rank">Minimum Rank:</label>
+        <input type="number" name="min_rank" id="min_rank">
+        <br>
+        <label for="brand">Preferred Brand:</label>
+        <input type="text" name="brand" id="brand">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
